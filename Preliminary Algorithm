@@ -1,0 +1,19 @@
+BufferSize (size of array called Buffer) is set to large number
+PlaybackIndex (variable for what spot in the array is being accesssed [aka what sample in that spot is being outputted])
+PlaybackSpeed (variable for how playback index steps through array)
+
+
+
+User taps in tempo (1st tap starts input of counted samples, 2nd tap stops input of counted samples)
+Amount of samples inputted within those two taps represents 1 beats. This size is stored to variable (ie "BeatSize")
+BufferSize changes to the size of BeatSize * 4 (to get a buffer size of 4 beats)
+
+
+Basic Manipulation design:
+(example)
+User presses Beat Repeat option, playback switches to "Wet"
+As soon as the button is pressed, a variable LoopStart is set to the point in the array that marks the start of the beat being manipulated (repeated)
+This automatically sets variable LoopEnd to the spot in the array that's 1 beat from LoopStart (value of BeatSize")
+This section between LoopStart and LoopEnd is repeated while user continues to hold down Beat Repeat button
+Once they release button, LoopStart and LoopEnd reset to zero.
+Playback goes back to "Dry" playback
