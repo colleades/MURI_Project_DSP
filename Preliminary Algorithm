@@ -1,4 +1,5 @@
 BufferSize (size of array called Buffer) is set to large number
+PlaybackBuffer (amount of Buffer available to manipulate)
 PlaybackIndex (variable for what spot in the array is being accesssed [aka what sample in that spot is being outputted])
 PlaybackSpeed (variable for how playback index steps through array)
 
@@ -6,7 +7,7 @@ PlaybackSpeed (variable for how playback index steps through array)
 
 User taps in tempo (1st tap starts input of counted samples, 2nd tap stops input of counted samples)
 Amount of samples inputted within those two taps represents 1 beats. This size is stored to variable (ie "BeatSize")
-BufferSize changes to the size of BeatSize * 4 (to get a buffer size of 4 beats)
+PlaybackBuffer changes to the size of BeatSize * 4 (to get a manipulable buffer size of 4 beats)
 
 
 Basic Manipulation design:
