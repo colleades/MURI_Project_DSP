@@ -1,0 +1,13 @@
+char mystr[5] = "Hello";
+
+void setup() 
+{
+  Serial.begin(9600);
+}
+
+void loop() 
+{
+  Serial.write(mystr,5); //Write the serial data
+  delay(1000);
+
+}
