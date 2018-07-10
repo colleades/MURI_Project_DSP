@@ -125,7 +125,7 @@ interrupt void Codec_ISR()
 	}
 	else if (playbackIndex < 0)
 	{
-		roundedPlaybackIndex = BUFFER_LENGTH;
+		roundedPlaybackIndex = BUFFER_LENGTH - 1;
 	}
 	else
 	{
