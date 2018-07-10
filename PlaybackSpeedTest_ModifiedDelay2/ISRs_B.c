@@ -69,7 +69,7 @@ interrupt void Codec_ISR()
 ///////////////////////////////////////////////////////////////////////
 {                    
 	/* add any local variables here */
-	/*Uint32 newest;  // only used for infinite echo
+	//Uint32 newest;  // only used for infinite echo
 
  	if(CheckForOverrun())					// overrun error occurred (i.e. halted DSP)
 		return;								// so serial port is reset to recover
@@ -117,7 +117,7 @@ interrupt void Codec_ISR()
 		
 	playbackIndex = playbackIndex + playbackSpeed;
 	
-	Uint32 roundedPlaybackIndex = round(playbackIndex);
+	int roundedPlaybackIndex = round(playbackIndex);
 	
 	if (roundedPlaybackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
 	{
