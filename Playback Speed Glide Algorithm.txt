@@ -1,0 +1,19 @@
+userSpeed = 1;
+
+
+function timeTravelSliderIsPressed()
+{
+	userSpeed = getTimeTravelSpeedFromUser();
+}//end timeTravelSliderIsPressed
+
+function timeTravelSliderIsActive()
+{
+if (playbackSpeed != endSpeed)
+{
+playbackSpeed = (endSpeed - startSpeed)(              recordIndex              ) + startSpeed;
+      destinationIndex - startIndex
+}//endif
+}//end timeTravelSliderIsActive
+
+
+
