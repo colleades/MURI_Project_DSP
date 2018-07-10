@@ -132,8 +132,8 @@ interrupt void Codec_ISR()
 		roundedPlaybackIndex = round(playbackIndex);
 	}
 	
-	yLeft = buffer[LEFT][roundedPlaybackIndex];
-	yRight = buffer[RIGHT][roundedPlaybackIndex];
+	yLeft = buffer[LEFT][(Uint32) roundedPlaybackIndex];
+	yRight = buffer[RIGHT][(Uint32) roundedPlaybackIndex];
 	
 
 	CodecDataOut.Channel[LEFT] = yLeft;   // setup the LEFT value
