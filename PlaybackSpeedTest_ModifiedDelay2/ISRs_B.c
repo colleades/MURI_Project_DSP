@@ -119,9 +119,9 @@ interrupt void Codec_ISR()
 	
 	int roundedPlaybackIndex = round(playbackIndex);
 	
-	if (roundedPlaybackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
+	if (playbackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
 	{
-		roundedPlaybackIndex = 0;
+		playbackIndex = 0;
 	}
 	/*else if (roundedPlaybackIndex < 0)
 	{
