@@ -123,10 +123,10 @@ interrupt void Codec_ISR()
 	{
 		roundedPlaybackIndex = 0;
 	}
-	else if (roundedPlaybackIndex < 0)
+	/*else if (roundedPlaybackIndex < 0)
 	{
 		roundedPlaybackIndex = BUFFER_LENGTH;
-	}
+	}*/
 	
 	yLeft = buffer[LEFT][roundedPlaybackIndex];
 	yRight = buffer[RIGHT][roundedPlaybackIndex];
