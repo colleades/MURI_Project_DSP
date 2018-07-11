@@ -106,7 +106,7 @@ interrupt void Codec_ISR()
 	
 	//PLAYBACK SPEED TEST
 	//~~~~~~~~~~~~~~~~~~~~~
-	float playbackSpeed = -1.0;	
+	float playbackSpeed = 2;	
 	
 	xLeft = CodecDataIn.Channel[LEFT];   // current LEFT input value to float
 	xRight = CodecDataIn.Channel[RIGHT];   // current RIGHT input value to float
