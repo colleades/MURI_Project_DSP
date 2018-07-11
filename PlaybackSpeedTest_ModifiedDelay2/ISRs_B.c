@@ -11,6 +11,7 @@
 #include "DSP_Config.h" 
 #include "Echo.h" 
 #include <math.h>
+#include <stdio.h>
   
 // Data is received as 2 16-bit words (left/right) packed into one
 // 32-bit word.  The union allows the data to be accessed as a single 
@@ -118,7 +119,8 @@ interrupt void Codec_ISR()
 	
 	playbackIndex = playbackIndex + playbackSpeed;
 	
-	int roundedPlaybackIndex = (int) round(playbackIndex); 
+	int roundedPlaybackIndex = (int) round(playbackIndex);
+	printf("%d\n", roundedPlaybackIndex);	
 	
 	if (roundedPlaybackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
 	{
