@@ -118,7 +118,7 @@ interrupt void Codec_ISR()
 	
 	playbackIndex = playbackIndex + playbackSpeed;
 	
-	int roundedPlaybackIndex = round(playbackIndex); 
+	int roundedPlaybackIndex = (int) round(playbackIndex); 
 	
 	if (roundedPlaybackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
 	{
