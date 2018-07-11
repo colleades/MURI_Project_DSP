@@ -135,10 +135,10 @@ interrupt void Codec_ISR()
 	
 	int testIndex = 1231;
 	
-	//yLeft = buffer[LEFT][testIndex];	
+	yLeft = buffer[LEFT][testIndex];	
 	yRight = buffer[RIGHT][testIndex];
 	
-	//printf("The left sample: %f\n", yLeft);
+	printf("The left sample: %f\n", yLeft);
 	printf("The right sample: %f\n", yRight);
 	
 	exit(0);
