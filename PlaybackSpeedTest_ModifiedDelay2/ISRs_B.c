@@ -133,10 +133,12 @@ interrupt void Codec_ISR()
 	
 	//Uint32 newIndex = (Uint32) roundedPlaybackIndex;
 	
-	yLeft = buffer[LEFT][roundedPlaybackIndex];	
-	yRight = buffer[RIGHT][roundedPlaybackIndex];
+	int testIndex = 1231;
 	
-	printf("The left sample: %f\n", yLeft);
+	//yLeft = buffer[LEFT][testIndex];	
+	yRight = buffer[RIGHT][testIndex];
+	
+	//printf("The left sample: %f\n", yLeft);
 	printf("The right sample: %f\n", yRight);
 	
 	exit(0);
