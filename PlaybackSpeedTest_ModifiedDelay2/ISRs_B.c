@@ -31,6 +31,7 @@ volatile union {
 float xLeft, xRight, yLeft, yRight;
 int recIndex = 0; // index for buffer value
 float playbackIndex = 0.; 
+float playbackSpeed = 2;
 #define BUFFER_LENGTH   96000 // buffer length in samples
 #pragma DATA_SECTION (buffer, "CE0"); // put "buffer" in SDRAM
 volatile float buffer[2][BUFFER_LENGTH]; // space for left + right
@@ -106,7 +107,7 @@ interrupt void Codec_ISR()
 	
 	//PLAYBACK SPEED TEST
 	//~~~~~~~~~~~~~~~~~~~~~
-	float playbackSpeed = 2;	
+		
 	
 	xLeft = CodecDataIn.Channel[LEFT];   // current LEFT input value to float
 	xRight = CodecDataIn.Channel[RIGHT];   // current RIGHT input value to float
