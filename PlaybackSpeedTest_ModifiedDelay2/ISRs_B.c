@@ -131,17 +131,15 @@ interrupt void Codec_ISR()
 		roundedPlaybackIndex = BUFFER_LENGTH - 1;
 	}
 	
-	int testIndex = 48000;
-	
-	float sample = buffer[LEFT][testIndex];
-	
-	printf("The following sample should be 0: %f\n", sample);
-	exit(0);
-	
 	//Uint32 newIndex = (Uint32) roundedPlaybackIndex;
 	
-	yLeft = buffer[LEFT][roundedPlaybackIndex];
+	yLeft = buffer[LEFT][roundedPlaybackIndex];	
 	yRight = buffer[RIGHT][roundedPlaybackIndex];
+	
+	printf("The following sample should be 0: %f\n", yLeft);
+	printf("The following sample should be 0: %f\n", yRight);
+	
+	exit(0);
 	
 
 	CodecDataOut.Channel[LEFT] = yLeft;   // output the LEFT value
