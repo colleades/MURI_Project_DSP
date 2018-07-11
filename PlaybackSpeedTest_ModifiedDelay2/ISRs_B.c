@@ -30,7 +30,7 @@ volatile union {
 /* add any global variables here */
 float xLeft, xRight, yLeft, yRight;
 Uint32 recIndex = 0; // index for buffer value
-float playbackIndex = 0.; 
+float playbackIndex = 0; 
 float playbackSpeed = 2;
 #define BUFFER_LENGTH   96000 // buffer length in samples
 #pragma DATA_SECTION (buffer, "CE0"); // put "buffer" in SDRAM
@@ -108,17 +108,13 @@ interrupt void Codec_ISR()
 	//PLAYBACK SPEED TEST
 	//~~~~~~~~~~~~~~~~~~~~~
 		
-	
-	xLeft = CodecDataIn.Channel[LEFT];   // current LEFT input value to float
-	xRight = CodecDataIn.Channel[RIGHT];   // current RIGHT input value to float
-
-	buffer[LEFT][recIndex] = xLeft;
-	buffer[RIGHT][recIndex] = xRight;
+	buffer[LEFT][recIndex] = CodecDataIn.Channel[LEFT];
+	buffer[RIGHT][recIndex] = CodecDataIn.Channel[RIGHT];
 	
 	if (++recIndex >= BUFFER_LENGTH) // implement circular buffer recording
 		recIndex = 0;
 	
-	int roundedPlaybackIndex = (int) round(playbackIndex);
+	/*int roundedPlaybackIndex = (int) round(playbackIndex);
 	
 	if (roundedPlaybackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
 	{
@@ -140,11 +136,11 @@ interrupt void Codec_ISR()
 	
 	//printf("The left sample: %f\n The right sample: %f\n", yLeft, yRight);
 	
-	//exit(0);
+	//exit(0);*/
 	
 
-	CodecDataOut.Channel[LEFT] = CodecDataIn.Channel[LEFT];   // output the LEFT value
-	CodecDataOut.Channel[RIGHT] = CodecDataIn.Channel[RIGHT]; // output the RIGHT value
+	CodecDataOut.Channel[LEFT] = buffer[LEFT][recIndex - 1];   // output the LEFT value
+	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][recIndex - 1]; // output the RIGHT value
 	/*****************************/
 	/* end your code here */
 
