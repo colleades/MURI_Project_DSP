@@ -129,7 +129,7 @@ interrupt void Codec_ISR()
 		roundedPlaybackIndex = BUFFER_LENGTH - 1;
 	}
 	
-	Uint32 newIndex = abs(roundedPlaybackIndex);
+	Uint32 newIndex = (Uint32) roundedPlaybackIndex;
 	
 	yLeft = buffer[LEFT][newIndex];
 	yRight = buffer[RIGHT][newIndex];
