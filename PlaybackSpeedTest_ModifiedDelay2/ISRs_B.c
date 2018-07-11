@@ -131,7 +131,11 @@ interrupt void Codec_ISR()
 		roundedPlaybackIndex = BUFFER_LENGTH - 1;
 	}
 	
-	printf("%d\n", roundedPlaybackIndex);
+	int testIndex = 48000;
+	
+	float sample = buffer[LEFT][testIndex]
+	
+	printf("The following sample should be 0: %f\n", sample);
 	exit(0);
 	
 	//Uint32 newIndex = (Uint32) roundedPlaybackIndex;
