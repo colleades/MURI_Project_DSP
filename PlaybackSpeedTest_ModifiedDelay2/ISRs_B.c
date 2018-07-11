@@ -121,8 +121,6 @@ interrupt void Codec_ISR()
 	playbackIndex = playbackIndex + playbackSpeed;
 	
 	int roundedPlaybackIndex = (int) round(playbackIndex);
-	printf("%d\n", roundedPlaybackIndex);
-	exit(0);
 	
 	if (roundedPlaybackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
 	{
@@ -132,6 +130,9 @@ interrupt void Codec_ISR()
 	{
 		roundedPlaybackIndex = BUFFER_LENGTH - 1;
 	}
+	
+	printf("%d\n", roundedPlaybackIndex);
+	exit(0);
 	
 	//Uint32 newIndex = (Uint32) roundedPlaybackIndex;
 	
