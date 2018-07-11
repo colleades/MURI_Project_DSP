@@ -133,7 +133,7 @@ interrupt void Codec_ISR()
 	
 	int testIndex = 48000;
 	
-	float sample = buffer[LEFT][testIndex]
+	float sample = buffer[LEFT][testIndex];
 	
 	printf("The following sample should be 0: %f\n", sample);
 	exit(0);
