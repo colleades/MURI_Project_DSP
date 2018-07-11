@@ -29,7 +29,7 @@ volatile union {
 
 /* add any global variables here */
 float xLeft, xRight, yLeft, yRight;
-Uint32 recIndex = 0; // index for buffer value
+int recIndex = 0; // index for buffer value
 float playbackIndex = 0.; 
 #define BUFFER_LENGTH   96000 // buffer length in samples
 #pragma DATA_SECTION (buffer, "CE0"); // put "buffer" in SDRAM
@@ -143,7 +143,7 @@ interrupt void Codec_ISR()
 	
 
 	CodecDataOut.Channel[LEFT] = buffer[LEFT][recIndex];   // output the LEFT value
-	CodecDataOut.Channel[RIGHT] = buffer[LEFT][recIndex]; // output the RIGHT value
+	CodecDataOut.Channel[RIGHT] = buffer[RIGHTs][recIndex]; // output the RIGHT value
 	/*****************************/
 	/* end your code here */
 
