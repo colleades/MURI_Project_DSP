@@ -132,18 +132,18 @@ interrupt void Codec_ISR()
 	
 	int testIndex = 1231;
 	
-	yLeft = buffer[LEFT][testIndex];	
-	yRight = buffer[RIGHT][testIndex];
+	yLeft = buffer[LEFT][roundedPlaybackIndex];	
+	yRight = buffer[RIGHT][roundedPlaybackIndex];
 	
 	playbackIndex = playbackIndex + playbackSpeed;
 	
-	printf("The left sample: %f\n The right sample: %f\n", yLeft, yRight);
+	//printf("The left sample: %f\n The right sample: %f\n", yLeft, yRight);
 	
-	exit(0);
+	//exit(0);
 	
 
-	CodecDataOut.Channel[LEFT] = yLeft;   // output the LEFT value
-	CodecDataOut.Channel[RIGHT] = yRight; // output the RIGHT value
+	CodecDataOut.Channel[LEFT] = buffer[LEFT][recIndex];   // output the LEFT value
+	CodecDataOut.Channel[RIGHT] = buffer[LEFT][recIndex]; // output the RIGHT value
 	/*****************************/
 	/* end your code here */
 
