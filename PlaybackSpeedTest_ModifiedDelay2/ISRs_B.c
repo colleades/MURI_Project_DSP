@@ -117,9 +117,6 @@ interrupt void Codec_ISR()
 	if (++recIndex >= BUFFER_LENGTH) // implement circular buffer recording
 		recIndex = 0;
 	
-	
-	playbackIndex = playbackIndex + playbackSpeed;
-	
 	int roundedPlaybackIndex = (int) round(playbackIndex);
 	
 	if (roundedPlaybackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
@@ -138,8 +135,9 @@ interrupt void Codec_ISR()
 	yLeft = buffer[LEFT][testIndex];	
 	yRight = buffer[RIGHT][testIndex];
 	
-	printf("The left sample: %f\n", yLeft);
-	printf("The right sample: %f\n", yRight);
+	playbackIndex = playbackIndex + playbackSpeed;
+	
+	printf("The left sample: %f\n The right sample: %f\n", yLeft, yRight);
 	
 	exit(0);
 	
