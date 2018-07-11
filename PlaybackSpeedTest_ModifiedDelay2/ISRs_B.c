@@ -137,7 +137,7 @@ interrupt void Codec_ISR()
 	yRight = buffer[RIGHT][roundedPlaybackIndex];
 	
 	printf("The left sample: %f\n", yLeft);
-	printf("The right sample: %f\n", yRight);
+	printf("The right sample");
 	
 	exit(0);
 	
