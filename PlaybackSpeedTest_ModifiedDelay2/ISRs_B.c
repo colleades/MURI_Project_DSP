@@ -104,7 +104,7 @@ interrupt void Codec_ISR()
 	
 	//PLAYBACK SPEED TEST
 	//~~~~~~~~~~~~~~~~~~~~~
-	float playbackSpeed = -1;	
+	float playbackSpeed = -1.0;	
 	
 	xLeft = CodecDataIn.Channel[LEFT];   // current LEFT input value to float
 	xRight = CodecDataIn.Channel[RIGHT];   // current RIGHT input value to float
@@ -114,30 +114,29 @@ interrupt void Codec_ISR()
 	
 	if (++recIndex >= BUFFER_LENGTH) // implement circular buffer recording
 		recIndex = 0;
-		
+	
+	
 	playbackIndex = playbackIndex + playbackSpeed;
 	
-	int roundedPlaybackIndex; 
+	int roundedPlaybackIndex = round(playbackIndex); 
 	
-	if (playbackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
+	if (roundedPlaybackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
 	{
 		roundedPlaybackIndex = 0;
 	}
-	else if (playbackIndex < 0)
+	else if (roundedPlaybackIndex < 0)
 	{
 		roundedPlaybackIndex = BUFFER_LENGTH - 1;
 	}
-	else
-	{
-		roundedPlaybackIndex = round(playbackIndex);
-	}
 	
-	yLeft = buffer[LEFT][(Uint32) roundedPlaybackIndex];
-	yRight = buffer[RIGHT][(Uint32) roundedPlaybackIndex];
+	Uint32 newIndex = abs(roundedPlaybackIndex);
+	
+	yLeft = buffer[LEFT][newIndex];
+	yRight = buffer[RIGHT][newIndex];
 	
 
-	CodecDataOut.Channel[LEFT] = yLeft;   // setup the LEFT value
-	CodecDataOut.Channel[RIGHT] = yRight; // setup the RIGHT value
+	CodecDataOut.Channel[LEFT] = yLeft;   // output the LEFT value
+	CodecDataOut.Channel[RIGHT] = yRight; // output the RIGHT value
 	/*****************************/
 	/* end your code here */
 
