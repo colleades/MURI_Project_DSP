@@ -143,7 +143,7 @@ interrupt void Codec_ISR()
 	
 
 	CodecDataOut.Channel[LEFT] = buffer[LEFT][recIndex];   // output the LEFT value
-	CodecDataOut.Channel[RIGHT] = buffer[RIGHTs][recIndex]; // output the RIGHT value
+	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][recIndex]; // output the RIGHT value
 	/*****************************/
 	/* end your code here */
 
