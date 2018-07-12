@@ -131,7 +131,7 @@ interrupt void Codec_ISR()
 	int intPlaybackIndex = (int)(playbackIndex);
 	
 	yLeft = buffer[LEFT][intPlaybackIndex];
-	yRight = buffer[LEFT][intPlaybackIndex];
+	yRight = buffer[RIGHT][intPlaybackIndex];
 	
 	playbackIndex = (playbackIndex + playbackSpeed);
 	
