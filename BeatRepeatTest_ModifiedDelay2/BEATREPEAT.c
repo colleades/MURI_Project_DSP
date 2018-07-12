@@ -31,7 +31,7 @@ volatile union {
 float xLeft, xRight, yLeft, yRight;
 Uint32 recIndex = 0; // index for buffer value
 int playbackIndex = 0; 
-int playbackSpeed = -1;
+int playbackSpeed = 1;
 #define BUFFER_LENGTH   96000 // buffer length in samples
 #pragma DATA_SECTION (buffer, "CE0"); // put "buffer" in SDRAM
 volatile float buffer[2][BUFFER_LENGTH]; // space for left + right
@@ -115,33 +115,46 @@ interrupt void Codec_ISR()
 	//~~~~~~~~~~~~~~~~~~~~~
 	//end RECORD TO BUFFER	
 	
-	//PLAYBACK SPEED TEST
+	//BEAT REPEAT TEST
 	//~~~~~~~~~~~~~~~~~~~~~	
-	//int roundedPlaybackIndex = (int) round(playbackIndex);
+	int roundedPlaybackIndex = (int) round(playbackIndex);
 	
 	if (playbackIndex >= BUFFER_LENGTH) // Forward and Backward circular playback
 	{
 		playbackIndex = 0;
 	}
-	else if (playbackIndex < 0)
+	else (playbackIndex < 0)
 	{
 		playbackIndex = (BUFFER_LENGTH - 1);
 	}
 	
+	//move through buffer according to playbackspeed
 	playbackIndex = (playbackIndex + playbackSpeed);
 
-	//LETS DO THIS THING
-	
-	/*int testIndex = 1231;
-	
-	yLeft = buffer[LEFT][roundedPlaybackIndex];	
-	yRight = buffer[RIGHT][roundedPlaybackIndex];
-	
-	//printf("The left sample: %f\n The right sample: %f\n", yLeft, yRight);
+	//Random loop start and end points
+	int loopStart = 0;
+	//int loopEnd = loopStart+oneBeat(oneBeat determined by tap tempo)
+	int loopEnd = 48000;
+
+	//if playbackIndex gets to the end of the beat/loop, send it back to beginning
+	if (playbackIndex >= loopEnd){
+
+		playbackIndex = 0;
+	}
+
+
+
+	yLeft = buffer[LEFT][playbackIndex];	
+	yRight = buffer[RIGHT][playbackIndex];
+
+
+
+		
+		//printf("The left sample: %f\n The right sample: %f\n", yLeft, yRight);
 	
 	//exit(0);
 	
-	int newIndex = recIndex - 1;*/
+	//int newIndex = recIndex - 1;*/
 
 	CodecDataOut.Channel[LEFT] = buffer[LEFT][playbackIndex];   // output the LEFT value
 	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][playbackIndex]; // output the RIGHT value
