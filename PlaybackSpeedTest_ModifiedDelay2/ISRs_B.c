@@ -30,8 +30,8 @@ volatile union {
 /* add any global variables here */
 float xLeft, xRight, yLeft, yRight;
 Uint32 recIndex = 0; // index for buffer value
-float playbackIndex = 0; 
-float playbackSpeed = 2;
+int playbackIndex = 0; 
+int playbackSpeed = -1;
 #define BUFFER_LENGTH   96000 // buffer length in samples
 #pragma DATA_SECTION (buffer, "CE0"); // put "buffer" in SDRAM
 volatile float buffer[2][BUFFER_LENGTH]; // space for left + right
@@ -105,43 +105,44 @@ interrupt void Codec_ISR()
 	//yLeft = buffer[LEFT][oldest];  // or use newest 
 	//yRight = buffer[RIGHT][oldest];  // or use newest
 	
-	//PLAYBACK SPEED TEST
-	//~~~~~~~~~~~~~~~~~~~~~
-		
+	//RECORD TO BUFFER
+	//~~~~~~~~~~~~~~~~~~~~~	
 	buffer[LEFT][recIndex] = CodecDataIn.Channel[LEFT];
 	buffer[RIGHT][recIndex] = CodecDataIn.Channel[RIGHT];
 	
 	if (++recIndex >= BUFFER_LENGTH) // implement circular buffer recording
 		recIndex = 0;
+	//~~~~~~~~~~~~~~~~~~~~~
+	//end RECORD TO BUFFER	
 	
-	/*int roundedPlaybackIndex = (int) round(playbackIndex);
+	//PLAYBACK SPEED TEST
+	//~~~~~~~~~~~~~~~~~~~~~	
+	//int roundedPlaybackIndex = (int) round(playbackIndex);
 	
-	if (roundedPlaybackIndex >= BUFFER_LENGTH) // implement circular buffer playbac
+	if (playbackIndex >= BUFFER_LENGTH) // Forward and Backward circular playback
 	{
-		roundedPlaybackIndex = 0;
+		playbackIndex = 0;
 	}
-	else if (roundedPlaybackIndex < 0)
+	else if (playbackIndex < 0)
 	{
-		roundedPlaybackIndex = BUFFER_LENGTH - 1;
+		playbackIndex = (BUFFER_LENGTH - 1);
 	}
 	
-	//Uint32 newIndex = (Uint32) roundedPlaybackIndex;
+	playbackIndex = (playbackIndex + playbackSpeed);
 	
-	int testIndex = 1231;
+	/*int testIndex = 1231;
 	
 	yLeft = buffer[LEFT][roundedPlaybackIndex];	
 	yRight = buffer[RIGHT][roundedPlaybackIndex];
 	
-	playbackIndex = playbackIndex + playbackSpeed;
-	
 	//printf("The left sample: %f\n The right sample: %f\n", yLeft, yRight);
 	
-	//exit(0);*/
+	//exit(0);
 	
-	int newIndex = recIndex - 1;
+	int newIndex = recIndex - 1;*/
 
-	CodecDataOut.Channel[LEFT] = buffer[LEFT][newIndex];   // output the LEFT value
-	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][newIndex]; // output the RIGHT value
+	CodecDataOut.Channel[LEFT] = buffer[LEFT][playbackIndex];   // output the LEFT value
+	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][playbackIndex]; // output the RIGHT value
 	/*****************************/
 	/* end your code here */
 
