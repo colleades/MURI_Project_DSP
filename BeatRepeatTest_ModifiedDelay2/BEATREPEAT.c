@@ -129,6 +129,8 @@ interrupt void Codec_ISR()
 	}
 	
 	playbackIndex = (playbackIndex + playbackSpeed);
+
+	//LETS DO THIS THING
 	
 	/*int testIndex = 1231;
 	
