@@ -73,7 +73,7 @@ void ZeroBuffer()
 
 /************RANDOM FUNCTION THAT'S STUPID*********/////////
 
-str helloThere (int intSerialTest) {
+void helloThere (int intSerialTest) {
 	
 	printf("%u, Hello There: ", intSerialTest);
 	
