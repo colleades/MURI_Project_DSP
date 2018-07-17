@@ -32,6 +32,11 @@ int main()
            Uint8 serialTest = Read_UART2();
            printf("%u", serialTest);
            puts("\n");
+         
+           //call function defined in ISR and pass it serialTest
+           helloThere (serialTest);
+         
+         
            //puts("Cats");
 
         }
