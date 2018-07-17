@@ -29,7 +29,7 @@ int main()
         if(dataReady != 0)
         {
            Uint8 serialTest = Read_UART2();
-           printf("This is from the main.c file: %u", serialTest);
+           printf("\nThis is from the main.c file: %u", serialTest);
            puts("\n");
          
            //change unsigned to int
