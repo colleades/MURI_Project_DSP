@@ -23,6 +23,7 @@ int main()
 	// main stalls here, interrupts drive operation 
   	while(1) { 
 		
+		//random test function, delete later
 		helloThere();
 		;
   	}   
