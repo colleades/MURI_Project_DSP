@@ -31,7 +31,13 @@ volatile union {
 float xLeft, xRight, yLeft, yRight;
 Uint32 recIndex = 0; // index for buffer value
 float playbackIndex = 0; 
-float playbackSpeed = 0.5;
+
+//Collin edits
+
+
+
+//Original
+//float playbackSpeed = 0.5;
 #define BUFFER_LENGTH   96000 // buffer length in samples
 #pragma DATA_SECTION (buffer, "CE0"); // put "buffer" in SDRAM
 volatile float buffer[2][BUFFER_LENGTH]; // space for left + right
@@ -57,6 +63,30 @@ void ZeroBuffer()
         buffer[RIGHT][i] = 0.0;  
         }
 }
+
+
+
+
+
+
+
+
+/************RANDOM FUNCTION THAT'S STUPID*********/////////
+
+str helloThere () {
+	
+	printf("Hello There!");
+	
+}
+
+/****************************************************///////
+
+
+
+
+
+
+
 
 interrupt void Codec_ISR()
 ///////////////////////////////////////////////////////////////////////
