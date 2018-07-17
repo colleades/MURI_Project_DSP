@@ -38,6 +38,8 @@ float playbackIndex = 0;
 
 //Original
 float playbackSpeed = 1.0;
+//variable for what current serial info is being sent
+int serialValue = 0;
 #define BUFFER_LENGTH   96000 // buffer length in samples
 #pragma DATA_SECTION (buffer, "CE0"); // put "buffer" in SDRAM
 volatile float buffer[2][BUFFER_LENGTH]; // space for left + right
@@ -75,18 +77,13 @@ void ZeroBuffer()
 
 void helloThere (int intSerialTest) {
 	
-	puts("\n");
+	//set ISR serial value to whatever number is sent in from main
+	serialValue = intSerialTest;
+	
+	/*puts("\n");
 	printf("This is from the ISR file: %d", intSerialTest);
-	puts("\n");
-	
-	//if serialTest is 24, playbackspeed is .5, otherwise, it's 1
-	if (intSerialTest == 24){
+	puts("\n");*/
 		
-		playbackSpeed = 0.5;
-	else
-		playbackSpeed = 1;
-	
-	
 }
 
 /****************************************************///////
@@ -169,6 +166,17 @@ interrupt void Codec_ISR()
 	}
 	
 	int intPlaybackIndex = (int)(playbackIndex);
+	
+	//PLAYBACK SPEED TEST!!!!!!!!!
+	
+	//if serialTest is 24, playbackspeed is .5, otherwise, it's 1
+	if (serialValue == 24){
+		
+		playbackSpeed = 0.5;
+	else
+		playbackSpeed = 1;
+		
+		
 	
 	yLeft = buffer[LEFT][intPlaybackIndex];
 	yRight = buffer[RIGHT][intPlaybackIndex];
