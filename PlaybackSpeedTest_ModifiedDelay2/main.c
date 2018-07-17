@@ -22,6 +22,8 @@ int main()
 	
 	// main stalls here, interrupts drive operation 
   	while(1) { 
+		
+		helloThere();
 		;
   	}   
 }
