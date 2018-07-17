@@ -37,7 +37,7 @@ float playbackIndex = 0;
 
 
 //Original
-float playbackSpeed = 0.5;
+float playbackSpeed = 1.0;
 #define BUFFER_LENGTH   96000 // buffer length in samples
 #pragma DATA_SECTION (buffer, "CE0"); // put "buffer" in SDRAM
 volatile float buffer[2][BUFFER_LENGTH]; // space for left + right
@@ -78,6 +78,14 @@ void helloThere (int intSerialTest) {
 	puts("\n");
 	printf("This is from the ISR file: %d", intSerialTest);
 	puts("\n");
+	
+	//if serialTest is 24, playbackspeed is .5, otherwise, it's 1
+	if (intSerialTest == 24){
+		
+		playbackSpeed = 0.5;
+	else
+		playbackSpeed = 1;
+	
 	
 }
 
