@@ -75,7 +75,8 @@ void ZeroBuffer()
 
 void helloThere (int intSerialTest) {
 	
-	printf("\n\nThis is from the ISR file: %d", intSerialTest);
+	printf("This is from the ISR file: %d", intSerialTest);
+	puts("\n");
 	
 }
 
