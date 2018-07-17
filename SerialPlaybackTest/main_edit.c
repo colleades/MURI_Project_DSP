@@ -33,8 +33,10 @@ int main()
            printf("%u", serialTest);
            puts("\n");
          
+           //change unsigned to int
            //call function defined in ISR and pass it serialTest
-           helloThere (serialTest);
+           int intSerialTest = (int)(serialTest);
+           helloThere (intSerialTest);
          
          
            //puts("Cats");
