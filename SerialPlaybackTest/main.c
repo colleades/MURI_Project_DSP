@@ -30,7 +30,7 @@ int main()
         {
            Uint8 serialTest = Read_UART2();
            printf("\nThis is from the main.c file: %u", serialTest);
-           puts("\n");
+           //puts("\n");
          
            //change unsigned to int
            //call function defined in ISR and pass it serialTest
