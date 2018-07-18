@@ -115,7 +115,7 @@ void playbackSpeed()
 	}
 	else if (playbackIndex < 0)
 	{
-		playbackIndex = (bufferEnd - 1);
+		playbackIndex = bufferEnd;
 	}
 	
 	int intPlaybackIndex = (int)(playbackIndex);
