@@ -24,7 +24,15 @@ int oneBeat = 24000;
 int halfBeat = 12000;
 int thirdBeat = 8000;
 
+//SET ACTIVE BUTTON
+//*******************************
+void setActiveButton(int newButtonValue)
+{
+	activeButton = newButtonValue;
+}
+
 //ISR
+//**********************************************
 //**********************************************
 interrupt ISR()
 {
@@ -83,12 +91,27 @@ void beatRepeat()
 //************************
 void playbackSpeed()
 {
+	if (playbackIndex >= BUFFER_LENGTH) // Forward and Backward circular playback
+	{
+		playbackIndex = 0;
+	}
+	else if (playbackIndex < 0)
+	{
+		playbackIndex = (BUFFER_LENGTH - 1);
+	}
 	
+	int intPlaybackIndex = (int)(playbackIndex);
+	
+	CodecDataOut.Channel[LEFT] = buffer[LEFT][intPlaybackIndex];
+	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][intPlaybackIndex];
+	
+	if(playbackSpeed != endSpeed)//glide playbackspeed
+	{
+		playbackSpeed = ((endSpeed - startSpeed)*(glideCounter/oneBeat)+startSpeed);
+		glideCounter++;
+	}
+	
+	playbackIndex = playbackIndex + playbackSpeed;
 }//end playback speed
 
-//SET ACTIVE BUTTON
-//*******************************
-void setActiveButton(int newButtonValue)
-{
-	activeButton = newButtonValue;
-}
+
