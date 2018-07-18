@@ -85,3 +85,10 @@ void playbackSpeed()
 {
 	
 }//end playback speed
+
+//SET ACTIVE BUTTON
+//*******************************
+void setActiveButton(int newButtonValue)
+{
+	activeButton = newButtonValue;
+}
