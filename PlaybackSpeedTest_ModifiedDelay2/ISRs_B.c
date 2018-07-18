@@ -105,20 +105,35 @@ interrupt void Codec_ISR()
 	//yLeft = buffer[LEFT][oldest];  // or use newest 
 	//yRight = buffer[RIGHT][oldest];  // or use newest
 	
-	//RECORD TO BUFFER
+	recordToBuffer();
+	
+	//PLAYBACK SPEED TEST
 	//~~~~~~~~~~~~~~~~~~~~~	
+
+	int newPlaybackIndex = getWetPlaybackIndex();
+	
+	yLeft = buffer[LEFT][newPlaybackIndex];
+	yRight = buffer[RIGHT][newPlaybackIndex];	
+
+	CodecDataOut.Channel[LEFT] = yLeft;   // output the LEFT value
+	CodecDataOut.Channel[RIGHT] = yRight; // output the RIGHT value
+	/*****************************/
+	/* end your code here */
+
+	WriteCodecData(CodecDataOut.UINT);		// send output data to  port
+}
+
+void recordToBuffer()
+{
 	buffer[LEFT][recIndex] = CodecDataIn.Channel[LEFT];
 	buffer[RIGHT][recIndex] = CodecDataIn.Channel[RIGHT];
 	
 	if (++recIndex >= BUFFER_LENGTH) // implement circular buffer recording
 		recIndex = 0;
-	//~~~~~~~~~~~~~~~~~~~~~
-	//end RECORD TO BUFFER	
-	
-	//PLAYBACK SPEED TEST
-	//~~~~~~~~~~~~~~~~~~~~~	
-	//int roundedPlaybackIndex = (int) round(playbackIndex);
-	
+}//end recordToBuffer
+
+int getWetPlaybackIndex()
+{
 	if (playbackIndex >= BUFFER_LENGTH) // Forward and Backward circular playback
 	{
 		playbackIndex = 0;
@@ -130,27 +145,8 @@ interrupt void Codec_ISR()
 	
 	int intPlaybackIndex = (int)(playbackIndex);
 	
-	yLeft = buffer[LEFT][intPlaybackIndex];
-	yRight = buffer[RIGHT][intPlaybackIndex];
-	
 	playbackIndex = (playbackIndex + playbackSpeed);
 	
-	/*int testIndex = 1231;
-	
-	yLeft = buffer[LEFT][roundedPlaybackIndex];	
-	yRight = buffer[RIGHT][roundedPlaybackIndex];
-	
-	//printf("The left sample: %f\n The right sample: %f\n", yLeft, yRight);
-	
-	//exit(0);
-	
-	int newIndex = recIndex - 1;*/
-
-	CodecDataOut.Channel[LEFT] = yLeft;   // output the LEFT value
-	CodecDataOut.Channel[RIGHT] = yRight; // output the RIGHT value
-	/*****************************/
-	/* end your code here */
-
-	WriteCodecData(CodecDataOut.UINT);		// send output data to  port
-}
+	return intPlaybackIndex	
+}//endGetWetPlaybackIndex	
 
