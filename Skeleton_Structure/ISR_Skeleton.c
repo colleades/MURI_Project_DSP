@@ -19,7 +19,7 @@ int loopStart = 0;
 int loopEnd = 24000;
 
 //Tap Tempo
-int sampleCounter = 0;
+int sampleCounter = 144000;
 int oneBeat = 24000;
 int halfBeat = 12000;
 int thirdBeat = 8000;
@@ -37,6 +37,7 @@ void setActiveButton(int newButtonValue)
 interrupt ISR()
 {
 	recordCurrentSample();
+	incTapTempoCounter();
 	
 	if(activeButton == 0)//No Buttons Pressed
 	}
@@ -66,6 +67,17 @@ void recordCurrentSample()
 }//end record current sample
 
 
+//INCREMENT TAP TEMPO COUNTER CURRENT SAMPLE
+//************************
+void incTapTempoCounter()
+{
+	if(sampleCounter != 144000)
+	{
+		sampleCounter++;
+	}
+}//end incTapTempoCounter
+
+
 //DRY PLAYBACK
 //************************
 void dryPlayback()
@@ -83,21 +95,27 @@ void beatRepeat()
 	CodecDataOut.Channel[LEFT] = buffer[LEFT][playbackIndex];
 	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][playbackIndex];
 	
-	if (++playbackIndex >= loopEnd) // implement circular buffer
-		playbackIndexIndex = 0;
+	playbackIndex++;
+	
+	if(playbackIndex == (loopEnd + 1))//loop points
+		playbackIndex = loopStart;
+	
+	if (playbackIndex >= bufferEnd) //wrap around buffer
+		playbackIndexIndex = 0;		
+	
 }//end beat repeat
 
 //PLAYBACK SPEED
 //************************
 void playbackSpeed()
 {
-	if (playbackIndex >= BUFFER_LENGTH) // Forward and Backward circular playback
+	if (playbackIndex >= bufferEnd) // Forward and Backward circular playback
 	{
 		playbackIndex = 0;
 	}
 	else if (playbackIndex < 0)
 	{
-		playbackIndex = (BUFFER_LENGTH - 1);
+		playbackIndex = (bufferEnd - 1);
 	}
 	
 	int intPlaybackIndex = (int)(playbackIndex);
@@ -105,12 +123,13 @@ void playbackSpeed()
 	CodecDataOut.Channel[LEFT] = buffer[LEFT][intPlaybackIndex];
 	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][intPlaybackIndex];
 	
-	if(playbackSpeed != endSpeed)//glide playbackspeed
+	if(playbackSpeed != endSpeed)//glide playback speed
 	{
 		playbackSpeed = ((endSpeed - startSpeed)*(glideCounter/oneBeat)+startSpeed);
 		glideCounter++;
 	}
 	
+	//get the new playback index
 	playbackIndex = playbackIndex + playbackSpeed;
 }//end playback speed
 
