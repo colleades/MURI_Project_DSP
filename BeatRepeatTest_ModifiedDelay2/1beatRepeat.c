@@ -30,8 +30,8 @@ volatile union {
 /* add any global variables here */
 float xLeft, xRight, yLeft, yRight;
 Uint32 recIndex = 0; // index for buffer value
-float playbackIndex = 0; 
-float playbackSpeed = 0.5;
+int playbackIndex = 0; 
+int playbackSpeed = -1;
 #define BUFFER_LENGTH   96000 // buffer length in samples
 #pragma DATA_SECTION (buffer, "CE0"); // put "buffer" in SDRAM
 volatile float buffer[2][BUFFER_LENGTH]; // space for left + right
@@ -143,10 +143,33 @@ int getWetPlaybackIndex()
 		playbackIndex = (BUFFER_LENGTH - 1);
 	}
 	
+<<<<<<< HEAD:PlaybackSpeedTest_ModifiedDelay2/ISRs_B.c
 	int intPlaybackIndex = (int)(playbackIndex);
 	
 	playbackIndex = (playbackIndex + playbackSpeed);
 	
 	return intPlaybackIndex	
 }//endGetWetPlaybackIndex	
+=======
+	playbackIndex = (playbackIndex + playbackSpeed);
+	
+	/*int testIndex = 1231;
+	
+	yLeft = buffer[LEFT][roundedPlaybackIndex];	
+	yRight = buffer[RIGHT][roundedPlaybackIndex];
+	
+	//printf("The left sample: %f\n The right sample: %f\n", yLeft, yRight);
+	
+	//exit(0);
+	
+	int newIndex = recIndex - 1;*/
+
+	CodecDataOut.Channel[LEFT] = buffer[LEFT][playbackIndex];   // output the LEFT value
+	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][playbackIndex]; // output the RIGHT value
+	/*****************************/
+	/* end your code here */
+
+	WriteCodecData(CodecDataOut.UINT);		// send output data to  port
+}
+>>>>>>> 3323fa5f86da268085341122ccdda5c9fdca1a33:BeatRepeatTest_ModifiedDelay2/1beatRepeat.c
 
