@@ -58,10 +58,13 @@ void tapTempo(){
 void setBeatRepeat(intSerialTest){
 	
         setActiveButton(1);
+	
+	//set playback index to current record spot
+	playbackIndex = recIndex;
           
         //set loop start and end points
-        loopStart = recIndex;
-        loopEnd = ((recIndex+oneBeat)%bufferEnd);
+        loopStart = playbackIndex;
+        loopEnd = ((playbackIndex+oneBeat)%bufferEnd);
                    
 }
          
@@ -72,6 +75,9 @@ void setTimeTravel(intSerialTest){
 	
           
         setActiveButton(2);
+	
+	//set playback to current recording spot
+	playbackIndex = recIndex;
           
         //change playback speed
         if (intSerialTest == 20){
