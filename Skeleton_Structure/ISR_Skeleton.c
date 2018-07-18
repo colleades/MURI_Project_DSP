@@ -101,7 +101,7 @@ void beatRepeat()
 		playbackIndex = loopStart;
 	
 	if (playbackIndex >= bufferEnd) //wrap around buffer
-		playbackIndexIndex = 0;		
+		playbackIndex = 0;		
 	
 }//end beat repeat
 
