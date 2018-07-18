@@ -24,12 +24,12 @@ int main()
              
              tapTempo();
            
-           }elseif (intSerialTest !=0 && <4){
+           }else if (intSerialTest !=0 && <4){
              
              //call beat repeat function and pass the specific beat repeat
              setBeatRepeat(intSerialTest);
              
-           }elseif (intSerialTest < 28 && > 4){
+           }else if (intSerialTest < 28 && > 4){
              
              //call time travel and pass specific time travel 
              setTimeTravel(intSerialTest);
@@ -37,7 +37,7 @@ int main()
            }else{
              
              //if no recognizable serial number is inputted, continue dry playback
-             activeSerialButton == 0;
+             setActiveButton(0);
                
            }
      
