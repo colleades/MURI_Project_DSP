@@ -31,6 +31,102 @@ void setActiveButton(int newButtonValue)
 	activeButton = newButtonValue;
 }
 
+
+//TAP TEMPO
+//*********
+void tapTempo(){
+	
+          
+  	//if sampleCounter is less than maximum beat size (20 samples), set oneBeat to current number of samples
+ 	if (sampleCounter < 144000){
+		
+           	//1beat
+          	oneBeat = sampleCounter;
+           	halfBeat = (sampleCounter/2);
+           	thirdBeat = (sampleCounter/3);
+            
+           	//set buffer size
+           	bufferEnd = ((oneBeat*8)-1);
+		 
+	 }
+	
+	 sampleCounter = 0;
+}
+         
+//SET BEAT REPEAT
+//***************
+void setBeatRepeat(intSerialTest){
+	
+        setActiveButton(1);
+          
+        //set loop start and end points
+        loopStart = recIndex;
+        loopEnd = ((recIndex+oneBeat)%bufferEnd);
+                   
+}
+         
+//TIME TRAVEL
+//***********
+void setTimeTravel(intSerialTest){
+	
+	
+          
+        setActiveButton(2);
+          
+        //change playback speed
+        if (intSerialTest == 20){
+		
+		//-2
+            	playbackSpeed = -2;
+            
+        }else if (intSerialTest == 21){
+		
+            
+          	//-1
+            	playbackSpeed = -1;
+          
+            
+        }else if (intSerialTest == 22){
+		
+		//-0.5
+           	playbackSpeed = -0.5;
+            
+        }else if (intSerialTest == 23){
+	
+            	//tape stoppppppppp (0)
+            	playbackSpeed = 0;
+         
+        }else if (intSerialTest == 24){
+		
+	        //0.5
+            	playbackSpeed = 0.5;
+            
+        }else if (intSerialTest == 25){
+            
+            	//1
+           	playbackSpeed = 1
+            
+        }else if (intSerialTest == 26){
+            
+            	//2
+            	playbackSpeed = 2
+            
+        }else if (intSerialTest == 27){
+            
+            	//4
+            	playbackSpeed = 4;
+            
+        }else{
+            
+            	playbackSpeed = 0;
+            
+        }
+                 
+}
+
+
+
+
 //ISR
 //**********************************************
 //**********************************************
