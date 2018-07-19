@@ -188,8 +188,10 @@ void dryPlayback()
 void beatRepeat()
 {
 	//output buffer audio
-	CodecDataOut.Channel[LEFT] = buffer[LEFT][playbackIndex];
-	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][playbackIndex];
+	int intPlaybackIndex = (int)(playbackIndex);
+	
+	CodecDataOut.Channel[LEFT] = buffer[LEFT][intPlaybackIndex];
+	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][intPlaybackIndex];
 	
 	playbackIndex++;
 	
