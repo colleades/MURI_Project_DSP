@@ -40,7 +40,7 @@ volatile float buffer[2][BUFFER_LENGTH]; // space for left + right
 
 //Wet Playback
 int activeButton = 0;
-int playbackIndex = 0;
+float playbackIndex = 0;
 
 //Time Travel
 float playbackSpeed = 1;
