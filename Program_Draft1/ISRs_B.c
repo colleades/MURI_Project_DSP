@@ -239,7 +239,7 @@ interrupt void Codec_ISR()
 	}
 	else if(activeButton == 2)//PlaybackSlider Pressed
 	}
-		playbackSpeed();
+		timeTravel();
 	}
 	
 
@@ -302,7 +302,7 @@ void beatRepeat()
 
 //PLAYBACK SPEED
 //************************
-void playbackSpeed()
+void timeTravel()
 {
 	if (playbackIndex > bufferEnd) // Forward and Backward circular playback
 	{
