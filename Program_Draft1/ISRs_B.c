@@ -280,6 +280,7 @@ void timeTravel()
     {
         playbackSpeed = ((endSpeed - startSpeed)*(glideCounter/oneBeat)+startSpeed);
         glideCounter++;
+		playbackSpeed = 0;
     }
 
     //get the new playback index
