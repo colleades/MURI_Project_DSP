@@ -215,11 +215,11 @@ void playbackSpeed()
 {
 	if (playbackIndex >= bufferEnd) // Forward and Backward circular playback
 	{
-		playbackIndex = 0;
+		playbackIndex = (playbackIndex % bufferEnd);
 	}
 	else if (playbackIndex < 0)
 	{
-		playbackIndex = bufferEnd;
+		playbackIndex = (bufferEnd + playbackIndex + 1);
 	}
 	
 	int intPlaybackIndex = (int)(playbackIndex);
