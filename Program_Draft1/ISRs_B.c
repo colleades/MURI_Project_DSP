@@ -23,8 +23,8 @@
 #define RIGHT 1
 
 volatile union {
-	Uint32 UINT;
-	Int16 Channel[2];
+    Uint32 UINT;
+    Int16 Channel[2];
 } CodecDataIn, CodecDataOut;
 
 
@@ -83,136 +83,138 @@ void ZeroBuffer()
 //*******************************
 void setActiveButton(int newButtonValue)
 {
-	activeButton = newButtonValue;
+    activeButton = newButtonValue;
 }
 
 
 //TAP TEMPO
 //*********
 void tapTempo(){
-	
-          
-  	//if sampleCounter is less than maximum beat size (20 samples), set oneBeat to current number of samples
- 	if (sampleCounter < 144000){
-		
-           	//1beat
-          	oneBeat = sampleCounter;
-            
-           	//set buffer size
-           	bufferEnd = ((oneBeat*8)-1);
-		 
-	 }
-	
-	 sampleCounter = 0;
+
+
+    //if sampleCounter is less than maximum beat size (20 samples), set oneBeat to current number of samples
+    if (sampleCounter < 144000){
+
+            //1beat
+            oneBeat = sampleCounter;
+
+            //set buffer size
+            bufferEnd = ((oneBeat*8)-1);
+
+     }
+
+     sampleCounter = 0;
 }
-         
+
 //SET BEAT REPEAT
 //***************
 void setBeatRepeat(int serialNumber){
-	
+
         setActiveButton(1);
-		
-		int beatDivision = oneBeat/serialNumber;
-	
-	//set playback index to current record spot
-	playbackIndex = recIndex;
-          
+
+        int beatDivision = oneBeat/serialNumber;
+
+    //set playback index to current record spot
+    playbackIndex = recIndex;
+
         //set loop start and end points
         loopStart = playbackIndex;
         loopEnd = ((playbackIndex+beatDivision)%bufferEnd);
-                   
-}
-         
-//TIME TRAVEL
-//***********
-void setTimeTravel(int serialNumber){
-	
-	float newPlaybackSpeed = serialToPlaybackSpeed(serialNumber);
-	
-	if (activeButton == 0)//pressing to jump to a speed
-	{
-        setActiveButton(2);
-		playbackSpeed = newPlaybackSpeed;
-		endSpeed = newPlaybackSpeed;
-	}
-	else if (activeButton == 2)//when dragging finger to different speeds
-	{
-		if(playbackSpeed == endSpeed)//initiate glide when starting from a stationary speed
-		{
-			glideCounter == 0;
-			startSpeed = playbackSpeed;
-		
-		}
-		endSpeed = newPlaybackSpeed;
-	}
-	
-	//set playback to current recording spot
-	playbackIndex = recIndex;
-	
+
 }
 
 float serialToPlaybackSpeed(int serialNumber)
 {
-	 //change playback speed
+     //change playback speed
         if (serialNumber == 20){
-		
-		//-2
-            	return -2;
-            
+
+        //-2
+                return -2;
+
         }else if (serialNumber == 21){
-		
-            
-          	//-1
-            	return -1;
-          
-            
+
+
+            //-1
+                return -1;
+
+
         }else if (serialNumber == 22){
-		
-		//-0.5
-           	return -0.5;
-            
+
+        //-0.5
+            return -0.5;
+
         }else if (serialNumber == 23){
-	
-            	//tape stoppppppppp (0)
-            	return 0;
-         
+
+                //tape stoppppppppp (0)
+                return 0;
+
         }else if (serialNumber == 24){
-		
-	        //0.5
-            	return 0.5;
-            
+
+            //0.5
+                return 0.5;
+
         }else if (serialNumber == 25){
-            
-            	//1
-           	return 1
-            
+
+                //1
+            return 1;
+
         }else if (serialNumber == 26){
-            
-            	//2
-            	return 2
-            
+
+                //2
+                return 2;
+
         }else if (serialNumber == 27){
-            
-            	//4
-            	return 4;
-            
+
+                //4
+                return 4;
+
         }else{
-            
-            	return 0;
-            
+
+                return 0;
+
         }
 }
+
+//TIME TRAVEL
+//***********
+void setTimeTravel(int serialNumber){
+
+    float newPlaybackSpeed = serialToPlaybackSpeed(serialNumber);
+
+    if (activeButton == 0)//pressing to jump to a speed
+    {
+        setActiveButton(2);
+        playbackSpeed = newPlaybackSpeed;
+        endSpeed = newPlaybackSpeed;
+    }
+    else if (activeButton == 2)//when dragging finger to different speeds
+    {
+        if(playbackSpeed == endSpeed)//initiate glide when starting from a stationary speed
+        {
+            glideCounter = 0;
+            startSpeed = playbackSpeed;
+
+        }
+        endSpeed = newPlaybackSpeed;
+    }
+
+    //set playback to current recording spot
+    playbackIndex = recIndex;
+
+}
+
+
 
 
 //RECORD CURRENT SAMPLE
 //************************
 void recordCurrentSample()
 {
-	buffer[LEFT][recIndex] = CodecDataIn.Channel[LEFT];
-	buffer[RIGHT][recIndex] = CodecDataIn.Channel[RIGHT];
-	
-	if (++recIndex >= bufferEnd) // implement circular buffer
-		recIndex = 0;
+    buffer[LEFT][recIndex] = CodecDataIn.Channel[LEFT];
+    buffer[RIGHT][recIndex] = CodecDataIn.Channel[RIGHT];
+
+    if (++recIndex >= bufferEnd) // implement circular buffer
+        recIndex = 0;
 }//end record current sample
 
 
@@ -220,10 +222,10 @@ void recordCurrentSample()
 //************************
 void incTapTempoCounter()
 {
-	if(sampleCounter != 144000)
-	{
-		sampleCounter++;
-	}
+    if(sampleCounter != 144000)
+    {
+        sampleCounter++;
+    }
 }//end incTapTempoCounter
 
 
@@ -231,8 +233,8 @@ void incTapTempoCounter()
 //************************
 void dryPlayback()
 {
-	CodecDataOut.Channel[LEFT] = CodecDataIn.Channel[LEFT];
-	CodecDataOut.Channel[RIGHT] = CodecDataIn.Channel[RIGHT];
+    CodecDataOut.Channel[LEFT] = CodecDataIn.Channel[LEFT];
+    CodecDataOut.Channel[RIGHT] = CodecDataIn.Channel[RIGHT];
 }//end dry playbackIndex
 
 
@@ -240,48 +242,48 @@ void dryPlayback()
 //************************
 void beatRepeat()
 {
-	//output buffer audio
-	int intPlaybackIndex = (int)(playbackIndex);
-	
-	CodecDataOut.Channel[LEFT] = buffer[LEFT][intPlaybackIndex];
-	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][intPlaybackIndex];
-	
-	playbackIndex++;
-	
-	if(playbackIndex == (loopEnd + 1))//loop points
-		playbackIndex = loopStart;
-	
-	if (playbackIndex >= bufferEnd) //wrap around buffer
-		playbackIndex = 0;		
-	
+    //output buffer audio
+    int intPlaybackIndex = (int)(playbackIndex);
+
+    CodecDataOut.Channel[LEFT] = buffer[LEFT][intPlaybackIndex];
+    CodecDataOut.Channel[RIGHT] = buffer[RIGHT][intPlaybackIndex];
+
+    playbackIndex++;
+
+    if(playbackIndex == (loopEnd + 1))//loop points
+        playbackIndex = loopStart;
+
+    if (playbackIndex >= bufferEnd) //wrap around buffer
+        playbackIndex = 0;
+    
 }//end beat repeat
 
 //PLAYBACK SPEED
 //************************
 void timeTravel()
 {
-	if (playbackIndex > bufferEnd) // Forward and Backward circular playback
-	{
-		playbackIndex = (playbackIndex - bufferEnd - 1);
-	}
-	else if (playbackIndex < 0)
-	{
-		playbackIndex = (bufferEnd + playbackIndex + 1);
-	}
-	
-	int intPlaybackIndex = (int)(playbackIndex);
-	
-	CodecDataOut.Channel[LEFT] = buffer[LEFT][intPlaybackIndex];
-	CodecDataOut.Channel[RIGHT] = buffer[RIGHT][intPlaybackIndex];
-	
-	if(playbackSpeed != endSpeed)//glide playback speed
-	{
-		playbackSpeed = ((endSpeed - startSpeed)*(glideCounter/oneBeat)+startSpeed);
-		glideCounter++;
-	}
-	
-	//get the new playback index
-	playbackIndex = playbackIndex + playbackSpeed;
+    if (playbackIndex > bufferEnd) // Forward and Backward circular playback
+    {
+        playbackIndex = (playbackIndex - bufferEnd - 1);
+    }
+    else if (playbackIndex < 0)
+    {
+        playbackIndex = (bufferEnd + playbackIndex + 1);
+    }
+
+    int intPlaybackIndex = (int)(playbackIndex);
+
+    CodecDataOut.Channel[LEFT] = buffer[LEFT][intPlaybackIndex];
+    CodecDataOut.Channel[RIGHT] = buffer[RIGHT][intPlaybackIndex];
+
+    if(playbackSpeed != endSpeed)//glide playback speed
+    {
+        playbackSpeed = ((endSpeed - startSpeed)*(glideCounter/oneBeat)+startSpeed);
+        glideCounter++;
+    }
+
+    //get the new playback index
+    playbackIndex = playbackIndex + playbackSpeed;
 }//end playback speed
 
 
@@ -290,7 +292,7 @@ void timeTravel()
 
 interrupt void Codec_ISR()
 ///////////////////////////////////////////////////////////////////////
-// Purpose:   Codec interface interrupt service routine  
+// Purpose:   Codec interface interrupt service routine
 //
 // Input:     None
 //
@@ -300,35 +302,35 @@ interrupt void Codec_ISR()
 //
 // Notes:     None
 ///////////////////////////////////////////////////////////////////////
-{                    
-	/* add any local variables here */
-	//Uint32 newest;  // only used for infinite echo
+{
+    /* add any local variables here */
+    //Uint32 newest;  // only used for infinite echo
 
- 	if(CheckForOverrun())					// overrun error occurred (i.e. halted DSP)
-		return;								// so serial port is reset to recover
+    if(CheckForOverrun())                   // overrun error occurred (i.e. halted DSP)
+        return;                             // so serial port is reset to recover
 
-  	CodecDataIn.UINT = ReadCodecData();		// get input data samples
-	
-	
-	recordCurrentSample();
-	incTapTempoCounter();
-	
-	if(activeButton == 0)//No Buttons Pressed
-	{
-		dryPlayback();
-	}
-	else if(activeButton == 1)//BeatRepeat Button Pressed
-	{
-		beatRepeat();
-	}
-	else if(activeButton == 2)//PlaybackSlider Pressed
-	{
-		timeTravel();
+    CodecDataIn.UINT = ReadCodecData();     // get input data samples
 
-	}
-	
 
-	WriteCodecData(CodecDataOut.UINT);		// send output data to  port
+    recordCurrentSample();
+    incTapTempoCounter();
+
+    if(activeButton == 0)//No Buttons Pressed
+    {
+        dryPlayback();
+    }
+    else if(activeButton == 1)//BeatRepeat Button Pressed
+    {
+        beatRepeat();
+    }
+    else if(activeButton == 2)//PlaybackSlider Pressed
+    {
+        timeTravel();
+
+    }
+
+
+    WriteCodecData(CodecDataOut.UINT);      // send output data to  port
 
 }//end ISR
 
