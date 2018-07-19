@@ -213,9 +213,9 @@ void beatRepeat()
 //************************
 void playbackSpeed()
 {
-	if (playbackIndex >= bufferEnd) // Forward and Backward circular playback
+	if (playbackIndex > bufferEnd) // Forward and Backward circular playback
 	{
-		playbackIndex = (playbackIndex % bufferEnd);
+		playbackIndex = (playbackIndex - bufferEnd - 1);
 	}
 	else if (playbackIndex < 0)
 	{
