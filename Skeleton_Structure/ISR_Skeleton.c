@@ -21,8 +21,6 @@ int loopEnd = 24000;
 //Tap Tempo
 int sampleCounter = 144000;
 int oneBeat = 24000;
-int halfBeat = 12000;
-int thirdBeat = 8000;
 
 //SET ACTIVE BUTTON
 //*******************************
@@ -42,8 +40,6 @@ void tapTempo(){
 		
            	//1beat
           	oneBeat = sampleCounter;
-           	halfBeat = (sampleCounter/2);
-           	thirdBeat = (sampleCounter/3);
             
            	//set buffer size
            	bufferEnd = ((oneBeat*8)-1);
