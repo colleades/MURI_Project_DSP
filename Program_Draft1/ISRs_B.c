@@ -238,13 +238,9 @@ interrupt void Codec_ISR()
 		beatRepeat();
 	}
 	else if(activeButton == 2)//PlaybackSlider Pressed
-<<<<<<< HEAD
 	{
-		playbackSpeed();
-=======
-	}
 		timeTravel();
->>>>>>> b67c7c6122988ee72efbbf392ba43fc95c316bc6
+
 	}
 	
 
