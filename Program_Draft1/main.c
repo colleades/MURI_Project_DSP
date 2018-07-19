@@ -28,23 +28,37 @@ int main()
 
         if(dataReady != 0)
         {
-           Uint8 serialTest = Read_UART2();
-           printf("\nThis is from the main.c file: %u", serialTest);
-           //puts("\n");
+           Uint8 serialIn = Read_UART2();
          
            //change unsigned to int
-           //call function defined in ISR and pass it serialTest
-           int intSerialTest = (int)(serialTest);
-           helloThere (intSerialTest);
-         
-         
-           //puts("Cats");
+           int serialNumber = (int)(serialIn);
+          
+           //select which function is called in ISR
+           if (serialNumber == 100){
+             
+             tapTempo();
+           
+           }else if (serialNumber !=0 && <4){
+             
+             //call beat repeat function and pass the specific beat repeat
+             setBeatRepeat(serialNumber);
+             
+           }else if (serialNumber < 28 && > 4){
+             
+             //call time travel and pass specific time travel 
+             setTimeTravel(serialNumber);
+             
+           }else{
+             
+             //if no recognizable serial number is inputted, continue dry playback
+             setActiveButton(0);
+               
+           }//else
+  
+        }//if
 
-        }
-
-    }
-
-
-}
+    }//while
+ 
+}//main
 
 
