@@ -230,15 +230,15 @@ interrupt void Codec_ISR()
 	incTapTempoCounter();
 	
 	if(activeButton == 0)//No Buttons Pressed
-	}
+	{
 		dryPlayback();
 	}
 	else if(activeButton == 1)//BeatRepeat Button Pressed
-	}
+	{
 		beatRepeat();
 	}
 	else if(activeButton == 2)//PlaybackSlider Pressed
-	}
+	{
 		playbackSpeed();
 	}
 	
