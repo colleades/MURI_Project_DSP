@@ -55,7 +55,7 @@ void tapTempo(){
          
 //SET BEAT REPEAT
 //***************
-void setBeatRepeat(intSerialTest){
+void setBeatRepeat(int serialNumber){
 	
         setActiveButton(1);
 	
@@ -70,64 +70,82 @@ void setBeatRepeat(intSerialTest){
          
 //TIME TRAVEL
 //***********
-void setTimeTravel(intSerialTest){
+void setTimeTravel(int serialNumber){
 	
+	float newPlaybackSpeed = serialToPlaybackSpeed(serialNumber);
 	
-          
+	if (activeButton == 0)//pressing to jump to a speed
+	{
         setActiveButton(2);
+		playbackSpeed = newPlaybackSpeed;
+		endSpeed = newPlaybackSpeed;
+	}
+	else if (activeButton == 2)//when dragging finger to different speeds
+	{
+		if(playbackSpeed == endSpeed)//initiate glide when starting from a stationary speed
+		{
+			glideCounter == 0;
+			startSpeed = playbackSpeed;
+		
+		}
+		endSpeed = newPlaybackSpeed;
+	}
 	
 	//set playback to current recording spot
 	playbackIndex = recIndex;
-          
-        //change playback speed
-        if (intSerialTest == 20){
+	
+}
+
+float serialToPlaybackSpeed(int serialNumber)
+{
+	 //change playback speed
+        if (serialNumber == 20){
 		
 		//-2
-            	playbackSpeed = -2;
+            	return -2;
             
-        }else if (intSerialTest == 21){
+        }else if (serialNumber == 21){
 		
             
           	//-1
-            	playbackSpeed = -1;
+            	return -1;
           
             
-        }else if (intSerialTest == 22){
+        }else if (serialNumber == 22){
 		
 		//-0.5
-           	playbackSpeed = -0.5;
+           	return -0.5;
             
-        }else if (intSerialTest == 23){
+        }else if (serialNumber == 23){
 	
             	//tape stoppppppppp (0)
-            	playbackSpeed = 0;
+            	return 0;
          
-        }else if (intSerialTest == 24){
+        }else if (serialNumber == 24){
 		
 	        //0.5
-            	playbackSpeed = 0.5;
+            	return 0.5;
             
-        }else if (intSerialTest == 25){
+        }else if (serialNumber == 25){
             
             	//1
-           	playbackSpeed = 1
+           	return 1
             
-        }else if (intSerialTest == 26){
+        }else if (serialNumber == 26){
             
             	//2
-            	playbackSpeed = 2
+            	return 2
             
-        }else if (intSerialTest == 27){
+        }else if (serialNumber == 27){
             
             	//4
-            	playbackSpeed = 4;
+            	return 4;
             
         }else{
             
-            	playbackSpeed = 0;
+            	return 0;
             
         }
-                 
 }
 
 
