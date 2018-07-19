@@ -204,51 +204,6 @@ float serialToPlaybackSpeed(int serialNumber)
 }
 
 
-interrupt void Codec_ISR()
-///////////////////////////////////////////////////////////////////////
-// Purpose:   Codec interface interrupt service routine  
-//
-// Input:     None
-//
-// Returns:   Nothing
-//
-// Calls:     CheckForOverrun, ReadCodecData, WriteCodecData
-//
-// Notes:     None
-///////////////////////////////////////////////////////////////////////
-{                    
-	/* add any local variables here */
-	//Uint32 newest;  // only used for infinite echo
-
- 	if(CheckForOverrun())					// overrun error occurred (i.e. halted DSP)
-		return;								// so serial port is reset to recover
-
-  	CodecDataIn.UINT = ReadCodecData();		// get input data samples
-	
-	
-	recordCurrentSample();
-	incTapTempoCounter();
-	
-	if(activeButton == 0)//No Buttons Pressed
-	{
-		dryPlayback();
-	}
-	else if(activeButton == 1)//BeatRepeat Button Pressed
-	{
-		beatRepeat();
-	}
-	else if(activeButton == 2)//PlaybackSlider Pressed
-	{
-		timeTravel();
-
-	}
-	
-
-	WriteCodecData(CodecDataOut.UINT);		// send output data to  port
-
-}//end ISR
-
-
 //RECORD CURRENT SAMPLE
 //************************
 void recordCurrentSample()
@@ -328,5 +283,53 @@ void timeTravel()
 	//get the new playback index
 	playbackIndex = playbackIndex + playbackSpeed;
 }//end playback speed
+
+
+
+
+
+interrupt void Codec_ISR()
+///////////////////////////////////////////////////////////////////////
+// Purpose:   Codec interface interrupt service routine  
+//
+// Input:     None
+//
+// Returns:   Nothing
+//
+// Calls:     CheckForOverrun, ReadCodecData, WriteCodecData
+//
+// Notes:     None
+///////////////////////////////////////////////////////////////////////
+{                    
+	/* add any local variables here */
+	//Uint32 newest;  // only used for infinite echo
+
+ 	if(CheckForOverrun())					// overrun error occurred (i.e. halted DSP)
+		return;								// so serial port is reset to recover
+
+  	CodecDataIn.UINT = ReadCodecData();		// get input data samples
+	
+	
+	recordCurrentSample();
+	incTapTempoCounter();
+	
+	if(activeButton == 0)//No Buttons Pressed
+	{
+		dryPlayback();
+	}
+	else if(activeButton == 1)//BeatRepeat Button Pressed
+	{
+		beatRepeat();
+	}
+	else if(activeButton == 2)//PlaybackSlider Pressed
+	{
+		timeTravel();
+
+	}
+	
+
+	WriteCodecData(CodecDataOut.UINT);		// send output data to  port
+
+}//end ISR
 
 
