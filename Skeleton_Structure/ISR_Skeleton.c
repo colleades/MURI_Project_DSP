@@ -58,13 +58,15 @@ void tapTempo(){
 void setBeatRepeat(int serialNumber){
 	
         setActiveButton(1);
+		
+		int beatDivision = oneBeat/serialNumber;
 	
 	//set playback index to current record spot
 	playbackIndex = recIndex;
           
         //set loop start and end points
         loopStart = playbackIndex;
-        loopEnd = ((playbackIndex+oneBeat)%bufferEnd);
+        loopEnd = ((playbackIndex+beatDivision)%bufferEnd);
                    
 }
          
