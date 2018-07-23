@@ -34,7 +34,7 @@ int main()
            int serialNumber = (int)(serialIn);
 
            //select which function is called in ISR
-           if (serialNumber == 100){
+           if (serialNumber == 33){
 
              tapTempo();
 
@@ -43,7 +43,7 @@ int main()
              //call beat repeat function and pass the specific beat repeat
              setBeatRepeat(serialNumber);
 
-           }else if (serialNumber < 28 && serialNumber> 4){
+           }else if (serialNumber < 105 && serialNumber > 96){
 
              //call time travel and pass specific time travel
              setTimeTravel(serialNumber);

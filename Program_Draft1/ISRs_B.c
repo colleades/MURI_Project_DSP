@@ -112,7 +112,7 @@ void setBeatRepeat(int serialNumber){
 
         setActiveButton(1);
 
-        int beatDivision = oneBeat/serialNumber;
+        int beatDivision = oneBeat/(serialNumber-48);
 
     //set playback index to current record spot
     playbackIndex = recIndex;
@@ -127,44 +127,44 @@ void setBeatRepeat(int serialNumber){
 float serialToPlaybackSpeed(int serialNumber)
 {
      //change playback speed
-        if (serialNumber == 20){
+        if (serialNumber == 97){
 
         //-2
                 return -2;
 
-        }else if (serialNumber == 21){
+        }else if (serialNumber == 98){
 
 
             //-1
                 return -1;
 
 
-        }else if (serialNumber == 22){
+        }else if (serialNumber == 99){
 
         //-0.5
             return -0.5;
 
-        }else if (serialNumber == 23){
+        }else if (serialNumber == 100){
 
                 //tape stoppppppppp (0)
                 return 0;
 
-        }else if (serialNumber == 24){
+        }else if (serialNumber == 101){
 
             //0.5
                 return 0.5;
 
-        }else if (serialNumber == 25){
+        }else if (serialNumber == 102){
 
                 //1
             return 1;
 
-        }else if (serialNumber == 26){
+        }else if (serialNumber == 103){
 
                 //2
                 return 2;
 
-        }else if (serialNumber == 27){
+        }else if (serialNumber == 104){
 
                 //4
                 return 4;
