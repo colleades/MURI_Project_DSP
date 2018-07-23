@@ -46,7 +46,7 @@ float playbackIndex = 0;
 float playbackSpeed = 1;
 float startSpeed = 1;
 float endSpeed = 1;
-int glideCounter = 0;
+float glideCounter = 0;
 
 //BeatRepeat
 int loopStart = 0;
@@ -116,10 +116,11 @@ void setBeatRepeat(int serialNumber){
 
     //set playback index to current record spot
     playbackIndex = recIndex;
+    int intPlaybackIndex = (int)(playbackIndex);
 
         //set loop start and end points
-        loopStart = playbackIndex;
-        loopEnd = ((playbackIndex+beatDivision)%bufferEnd);
+        loopStart = intPlaybackIndex;
+        loopEnd = ((intPlaybackIndex+beatDivision)%bufferEnd);
 
 }
 
@@ -279,8 +280,8 @@ void timeTravel()
     if(playbackSpeed != endSpeed)//glide playback speed
     {
         playbackSpeed = ((endSpeed - startSpeed)*(glideCounter/oneBeat)+startSpeed);
+
         glideCounter++;
-		playbackSpeed = 0;
     }
 
     //get the new playback index
