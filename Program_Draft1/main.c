@@ -38,7 +38,7 @@ int main()
 
              tapTempo();
 
-           }else if (serialNumber !=0 && serialNumber<4){
+           }else if (serialNumber !=48 && serialNumber<52){
 
              //call beat repeat function and pass the specific beat repeat
              setBeatRepeat(serialNumber);
